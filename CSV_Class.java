@@ -3,6 +3,42 @@ import java.io.FileReader;
 import java.io.IOException;
 public class CSV_Class {
 
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+
+        try {
+            int myInt = Integer.parseInt(strNum);
+            return true;
+        } 
+        catch (NumberFormatException nfe) {
+        }
+
+        try {
+            long myLong = Long.parseLong(strNum);
+            return true;
+        }
+        catch (NumberFormatException nfe) {
+        } 
+
+        try {
+            double myDouble = Double.parseDouble(strNum);
+            return true;
+        } 
+        catch (NumberFormatException nfe) {
+        }
+
+        try {
+            float myFloat = Float.parseFloat(strNum);
+            return true;
+        } 
+        catch (NumberFormatException nfe) {
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) {  
         String line = "";  
         String splitBy = ",";
@@ -14,7 +50,7 @@ public class CSV_Class {
                 String[] row = line.split(splitBy);    // use comma as separator
                 int length = row.length;
                 
-                if(length > 0 && row[1] instanceof java.lang.String) {
+                if(length > 0 && !isNumeric(row[1])) {
                     
                     for(int i = 0; i < length - 1; ++i) {
                         System.out.print(row[i] + ", ");
